@@ -24,4 +24,4 @@ jobs:
           git remote add dest https://$PAT@github.com/$DEST_REPO.git
 
           echo "Enviando atualizacoes visuais para a branch $DEST_BRANCH..."
-          git push dest main:$DEST_BRANCH -f
+          git push dest HEAD:$DEST_BRANCH -f
