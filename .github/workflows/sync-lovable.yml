@@ -22,9 +22,7 @@ jobs:
           PAT: ${{ secrets.SYNC_PAT_TOKEN }}
         run: |
           echo "Configurando conexao com o Repositorio Oficial..."
-          # Remove se já existir para evitar erro de duplicata
-          git remote remove dest || true
-          git remote add dest https://$PAT@github.com/$DEST_REPO.git
+          git remote add dest https://$PAT@github.com/$DEST_REPO.git || git remote set-url dest https://$PAT@github.com/$DEST_REPO.git
 
           echo "Enviando atualizacoes visuais para a branch $DEST_BRANCH..."
           git push dest HEAD:$DEST_BRANCH -f
