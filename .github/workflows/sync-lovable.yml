@@ -1,0 +1,27 @@
+name: Sync to Developers Repository
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixando o codigo do Lovable
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Enviando para o Repositorio dos Devs
+        env:
+          DEST_REPO: "tlsilva89/teste_de_repositorio_b"
+          DEST_BRANCH: "lovable-updates"
+          PAT: ${{ secrets.SYNC_PAT_TOKEN }}
+        run: |
+          echo "Configurando conexao com o Repositorio Oficial..."
+          git remote add dest https://$PAT@github.com/$DEST_REPO.git
+
+          echo "Enviando atualizacoes visuais para a branch $DEST_BRANCH..."
+          git push dest main:$DEST_BRANCH -f
